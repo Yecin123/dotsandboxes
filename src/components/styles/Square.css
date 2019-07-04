@@ -1,0 +1,59 @@
+
+
+.square {
+
+    width: 180px;
+    height: 180px;
+    background-color: burlywood;
+    border:2px solid white;
+}
+
+.player {
+
+   
+    top: 40%;
+    left: 40%;
+    position: relative;
+    color: white;
+}
+
+.top_red {
+    border-top: 4px solid red !important;
+}
+.bottom_red {
+    border-bottom: 4px solid red !important;
+}
+
+.right_red{
+    border-right: 4px solid red !important;
+}
+
+.left_red {
+    border-left: 4px solid red !important;
+}
+
+
+
+
+.top_blue {
+    border-top: 4px solid blue !important;
+}
+.bottom_blue {
+    border-bottom: 4px solid blue !important;
+}
+
+.right_blue {
+    border-right: 4px solid blue !important;
+}
+
+.left_blue {
+    border-left: 4px solid blue !important;
+}
+
+.background_red {
+   background-color: red;
+}
+
+.background_blue {
+    background-color: blue;
+ }
