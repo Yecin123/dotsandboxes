@@ -11,7 +11,7 @@ import {Square} from "./components/Square";
 
 import { Main } from './components/Main';
 import { GameBoard } from './components/GameBoard';
-import { BADFAMILY } from 'dns';
+
 
 
 
@@ -24,7 +24,7 @@ class App extends React.Component {
    
     this.state = {
       
-      main:false,
+      main:true,
       redPlayerName:"",
       bluePlayerName:""
       
@@ -35,6 +35,7 @@ class App extends React.Component {
    
   }
 
+  // start a game
   startGame  = (redPlayerName,bluePlayerName) =>{
 
     this.setState({
@@ -45,9 +46,7 @@ class App extends React.Component {
     });
   }
 
-  renderSquare() {
-    return <Square />
-  }
+  
 
 
   
@@ -57,7 +56,7 @@ class App extends React.Component {
 
     if (this.state.main) return <Main startGame={this.startGame}/>;
     else 
-    return <GameBoard redPlayerName={this.state.redPlayerName} bluePlayerName={this.state.bluePlayerName}/>;
+    return <GameBoard redPlayerName={this.state.redPlayerName} bluePlayerName={this.state.bluePlayerName} />;
   }
 }
 

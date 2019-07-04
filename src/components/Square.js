@@ -41,48 +41,41 @@ export class Square extends React.Component {
      //   console.log(newStyle);
 
        if (props.win) {
-            let last = squareLines.sort( (a,b)=>a.time.getTime()> b.time.getTime()).shift();
-            console.log(last);
-        if (last.player=="red") {
+          // console.log(props.playerNames);
+           let thisSquareAllLines = this.getAllSquareLines(props);
+           
+           let last = thisSquareAllLines[0];
+           
+           thisSquareAllLines.forEach(line=>  {
+            if ( line.time.getTime() > last.time.getTime()) last = line; 
+           });
+          
+          if (last.player=="red") {
+
             newStyle.push("background_red");
-            this.setState({winner:props.redPlayerName})
-        }
-        if (last.player="blue") {
+            
+            this.setState({winner:props.playerNames.red})
+              }
+
+          if (last.player=="blue") {
             newStyle.push("background_blue");
-            this.setState({winner:props.bluePlayerName})
+            this.setState({winner:props.playerNames.blue})
         }
-       }
-
-     /* let allSquareLines = this.getAllSquareLines(props);
-    
-      if (allSquareLines.length==4) {
-
-        if (  allSquareLines.filter(line=>line.player=="red").length==4 && ! this.state.styles.indexOf("background_red")>-1 ) {
-            
-            
-            newStyle.push("background_red");
-           this.state.winner = this.props.redPlayerName;
 
 
         }
-        if (  allSquareLines.filter(line=>line.player=="blue").length==4 && ! this.state.styles.indexOf("background_blue")>-1) {
-
         
-          newStyle.push("background_blue");
-          this.state.winner = this.props.bluePlayerName;
-         
-        }
        
 
-      } */
-
-    //  console.log("new style here" ,newStyle)
+   
 
       this.setState({styles:newStyle});
       
 
     }
 
+
+    // get all the lines used correspondig to this square
     getAllSquareLines = (props)=> {
 
         let x = this.props.coords.x;
@@ -100,10 +93,13 @@ export class Square extends React.Component {
 
         console.log("All",squareLines);
 
-            return squareLines.length==4;
+            return squareLines;
 
     }
 
+    // get the lines that will be colored in the grid 
+    // this is not the same as getAllSquareLines() this returns only the "top" and "left" borders except
+    // for squares in the bottom and right it returns all the borders 
     getSquareLines = (props)=> {
 
         
@@ -124,6 +120,8 @@ export class Square extends React.Component {
        
     }   
 
+
+    // get position of the mouse in the square
     getPos  = (event)=> {
         var bounds = event.target.getBoundingClientRect();
     
@@ -152,7 +150,7 @@ export class Square extends React.Component {
       }
 
       
-
+      // play a line
       playLine = (event)=> {
           let pos = this.getPos(event);
         
@@ -161,7 +159,7 @@ export class Square extends React.Component {
       }
 
 
-
+      // show the line that will be played if clicked
      hoverLine = (event)=> {
          
       

@@ -23,7 +23,10 @@ export class GameBoard extends React.Component {
             scoreBlue:0,
             lines :[],
             matchIsOver:false,
-            wins:wins
+            playerNames: {
+                red: this.props.redPlayerName,
+                blue: this.props.bluePlayerName
+            }
         
         };
 
@@ -31,17 +34,23 @@ export class GameBoard extends React.Component {
             
     }
 
+
+    // render a square in the game
     renderSquare = (x,y)=> {
-        return <Square coords={{x,y}}  lines={this.state.lines} win={this.checkWonSquare({x,y},this.state.lines)} player={this.state.player} redPlayerName={this.props.redPlayerName} bluePlayerName={this.props.bluePlayerName}
+        return <Square coords={{x,y}}  lines={this.state.lines} win={this.checkWonSquare({x,y},this.state.lines)} player = {this.state.player}  playerNames = {this.state.playerNames}
         play={this.play} />;
     }
 
+
+    // render a row of squares in the game
     renderRow = (n)=> {
         let row = [];
         for(var i=0;i<3;i++)
             row.push(this.renderSquare(i,n));
         return <Row> {row} </Row>
     }
+
+    // render game board
     renderGrid = ()=> {
        let   grid = [];
         for(var i=0;i<3;i++)
@@ -49,6 +58,8 @@ export class GameBoard extends React.Component {
         return grid;
     }
 
+
+    // check if square closed by lines
     checkWonSquare = (coords,lines) => {
 
 
@@ -67,9 +78,16 @@ export class GameBoard extends React.Component {
                 
       });
     
-      return squareLines.length==4;
+     
+      let isClosed =  squareLines.length==4;
+      
+      //if (isClosed) closedByPlayer =  squareLines.sort((a,b)=> a.time.getTime() > b.time.getTime()).shift().player;
+
+      return isClosed;
     
       }
+
+      // get the total sum of all closed squares on the board
       getTotalWonSquares = (lines)=> {
 
         
@@ -86,9 +104,10 @@ export class GameBoard extends React.Component {
 
       }
 
+      // when a player play a line in the board
       play = (coords,pos,player)=> {
 
-        console.log(coords,pos,this.state.wins);
+        console.log(coords,pos);
        
         let first = {};
         let second = {};
@@ -120,14 +139,15 @@ export class GameBoard extends React.Component {
         let lines = this.state.lines;
         let position = pos;
           
-    
+        // only top and left are used to identify the borders that needs to be colored in a square
+        // this is used to evade the "double coloring of borders in the game" for better UX
         if (pos=="bottom" && coords.y<2) position="top";
         if (pos=="right" && coords.x<2) position="left";
         
     
         
        
-       
+    // we check here the changes on the game before and after adding a line on the board
         let win = false;
        let  score = player=="red" ?this.state.scoreRed:this.state.scoreBlue;
 
@@ -146,6 +166,7 @@ export class GameBoard extends React.Component {
       
      
         
+     // update state changes here 
 
         if (this.state.player=="red") 
         this.setState({scoreRed:score});
@@ -167,7 +188,7 @@ export class GameBoard extends React.Component {
         
       }
      
-
+      // message when the game is over
       getGameOverMessage() {
 
         let message = "Game Over ";
@@ -184,7 +205,11 @@ export class GameBoard extends React.Component {
         return (
             
         <Container className="rootcontainer">
-        <h2> player turn : {this.state.player=="red"?this.props.redPlayerName:this.props.bluePlayerName}</h2>
+        {
+            !this.state.matchIsOver ?
+            <h2> player turn : {this.state.player=="red"?this.props.redPlayerName:this.props.bluePlayerName}</h2>
+            :null
+        }
         <h2> {this.props.redPlayerName} :  {this.state.scoreRed}  -     {this.state.scoreBlue} : {this.props.bluePlayerName} </h2>
         { this.state.matchIsOver? this.getGameOverMessage():null }
        { this.renderGrid()}
