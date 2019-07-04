@@ -30,7 +30,7 @@ export class Main extends React.Component {
     render() {
 
         return (
-            <Container>
+            <Container style={{marginTop:"100px"}}>
                <Row>
                <label>
                  Red Player Name:

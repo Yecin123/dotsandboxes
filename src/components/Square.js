@@ -6,6 +6,7 @@ import "./styles/Square.css";
 
 
 
+
 export class Square extends React.Component {
 
 
@@ -176,13 +177,22 @@ export class Square extends React.Component {
       
         return (
             <span>      
-        
+            
             <div 
             onMouseDown={this.playLine}
            onMouseMove = {this.hoverLine}
             className={this.state.styles.join(' ')} 
             
             >
+           
+           <div className="dot dot_top_left" />
+          
+         { this.props.coords.x ==2 ? <div className="dot dot_top_right" />  : null}
+         { this.props.coords.y ==2 ?  <div className="dot dot_bottom_left" /> : null}
+         { this.props.coords.y ==2 && this.props.coords.x==2 ?  <div className="dot dot_bottom_right" /> : null}
+         
+
+
             <span className="player">
             { this.state.winner}
           

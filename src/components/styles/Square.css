@@ -6,6 +6,7 @@
     height: 180px;
     background-color: burlywood;
     border:2px solid white;
+    position: relative;
 }
 
 .player {
@@ -57,3 +58,40 @@
 .background_blue {
     background-color: blue;
  }
+
+ .dot {
+    height: 25px;
+    width: 25px;
+    background-color: #bbb;
+    border-radius: 50%;
+   
+    position: absolute;
+}
+
+
+ .dot_top_left {
+     top: -12px;
+     left: -12px;
+ }
+
+ .dot_top_right {
+    top: -12px;
+    right: -12px;
+}
+
+ .dot_bottom_left {
+    bottom: -12px;
+    left: -12px;
+}
+.dot_bottom_right {
+    bottom: -12px;
+    right: -12px;
+}
+
+ 
+ 
+
+ 
+
+
+ 
